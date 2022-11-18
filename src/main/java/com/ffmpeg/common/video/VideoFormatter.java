@@ -1,6 +1,6 @@
 package com.ffmpeg.common.video;
 
-import com.ffmpeg.common.FFMpegExceptionn;
+import com.ffmpeg.common.FFMpegException;
 import com.ffmpeg.common.utils.BaseFileUtil;
 
 import java.io.*;
@@ -53,7 +53,7 @@ public class VideoFormatter {
             }
             bw.flush();
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e);
+            throw new FFMpegException(e);
         }
     }
 

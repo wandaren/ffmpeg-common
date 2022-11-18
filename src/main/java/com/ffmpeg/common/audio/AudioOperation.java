@@ -1,6 +1,6 @@
 package com.ffmpeg.common.audio;
 
-import com.ffmpeg.common.FFMpegExceptionn;
+import com.ffmpeg.common.FFMpegException;
 import com.ffmpeg.common.common.StreamHanlerCommon;
 import com.ffmpeg.common.response.Result;
 import com.ffmpeg.common.utils.BaseFileUtil;
@@ -46,7 +46,7 @@ public class AudioOperation {
      */
     public Result audioConcat(String bgmOutPath, String... bgmInputPath) {
         if(StrUtils.checkBlank(bgmOutPath) || bgmInputPath.length <= 0) {
-            throw new FFMpegExceptionn("请输入正确的音频输入和输出路径");
+            throw new FFMpegException("请输入正确的音频输入和输出路径");
         }
         BaseFileUtil.checkAndMkdir(bgmOutPath);
         try {
@@ -72,7 +72,7 @@ public class AudioOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class AudioOperation {
         Matcher matcher = pattern.matcher(startTime);
         Matcher matcher1 = pattern.matcher(endTime);
         if(!matcher.matches() || !matcher1.matches()) {
-            throw new FFMpegExceptionn("输入的时间格式错误");
+            throw new FFMpegException("输入的时间格式错误");
         }
         try {
             BaseFileUtil.checkAndMkdir(bgmOutPath);
@@ -108,7 +108,7 @@ public class AudioOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -123,7 +123,7 @@ public class AudioOperation {
     public Result getBgmFromVideo(String inputVideo, String outAudio) {
         //ffmpeg -y -i source.mp4 -vn output.wav
         if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(outAudio)) {
-            throw new FFMpegExceptionn("请输入正确的路径");
+            throw new FFMpegException("请输入正确的路径");
         }
         BaseFileUtil.checkAndMkdir(outAudio);
         try {
@@ -142,7 +142,7 @@ public class AudioOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -156,7 +156,7 @@ public class AudioOperation {
     public Result transFormatAudio(String inputAudio, String outAudio) {
         //ffmpeg -y -i source.amr  output.mp3
         if(StrUtils.checkBlank(inputAudio) || StrUtils.checkBlank(outAudio)) {
-            throw new FFMpegExceptionn("请输入正确的路径");
+            throw new FFMpegException("请输入正确的路径");
         }
         BaseFileUtil.checkAndMkdir(outAudio);
         try {
@@ -174,7 +174,7 @@ public class AudioOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -188,7 +188,7 @@ public class AudioOperation {
     public Result transFormatAmrAudio(String inputAudio, String outAudio) {
         // ffmpeg -i test.mp3 -c:a libopencore_amrnb -ac 1 -ar 8000 -b:a 12.20k -y test.amr
         if(StrUtils.checkBlank(inputAudio) || StrUtils.checkBlank(outAudio)) {
-            throw new FFMpegExceptionn("请输入正确的路径");
+            throw new FFMpegException("请输入正确的路径");
         }
         BaseFileUtil.checkAndMkdir(outAudio);
         try {
@@ -215,7 +215,7 @@ public class AudioOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -230,7 +230,7 @@ public class AudioOperation {
     public Result transFormatToMp3Audio(String inputAudio, String outAudio) {
         // ffmpeg -y -i amr.amr -acodec libmp3lame mp33.mp3
         if(StrUtils.checkBlank(inputAudio) || StrUtils.checkBlank(outAudio)) {
-            throw new FFMpegExceptionn("请输入正确的路径");
+            throw new FFMpegException("请输入正确的路径");
         }
         BaseFileUtil.checkAndMkdir(outAudio);
         try {
@@ -251,7 +251,7 @@ public class AudioOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 

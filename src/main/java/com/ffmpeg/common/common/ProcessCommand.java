@@ -1,7 +1,7 @@
 package com.ffmpeg.common.common;
 
 
-import com.ffmpeg.common.FFMpegExceptionn;
+import com.ffmpeg.common.FFMpegException;
 import com.ffmpeg.common.response.Result;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class ProcessCommand {
             process = builder.start();
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e);
+            throw new FFMpegException(e);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.ffmpeg.common.video;
 
-import com.ffmpeg.common.FFMpegExceptionn;
+import com.ffmpeg.common.FFMpegException;
 import com.ffmpeg.common.common.ProcessCommand;
 import com.ffmpeg.common.common.StreamHanlerCommon;
 import com.ffmpeg.common.response.Result;
@@ -48,7 +48,7 @@ public class VideoOperation {
         // ffmpeg -i in.flv -vcodec copy -acodec copy out.mp4
         try {
             if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(outputVideo)) {
-                throw new FFMpegExceptionn("videoInputFullPath or videoOutFullPath must not be null");
+                throw new FFMpegException("videoInputFullPath or videoOutFullPath must not be null");
             }
             BaseFileUtil.checkAndMkdir(inputVideo);
 
@@ -72,7 +72,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(proc);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -89,7 +89,7 @@ public class VideoOperation {
 //     保留原声合并音视频 ffmpeg -i bgm.mp3 -i input.mp4 -t 6 -filter_complex amix=inputs=2 output.mp4
         try {
             if(StrUtils.checkBlank(bgm) || StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(outputVideo) || seconds <= 0) {
-                throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+                throw new FFMpegException("请输入正确参数，参数不能为空");
             }
             BaseFileUtil.checkAndMkdir(outputVideo);
 
@@ -116,7 +116,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -131,7 +131,7 @@ public class VideoOperation {
 //        ffmpeg -ss 00:00:01 -y -i input.mp4 -vframes 1 out.jpg
         try {
             if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(coverOut)) {
-                throw new FFMpegExceptionn("请输入视频路径或封面图片输入参数");
+                throw new FFMpegException("请输入视频路径或封面图片输入参数");
             }
             BaseFileUtil.checkAndMkdir(coverOut);
 
@@ -155,7 +155,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -173,7 +173,7 @@ public class VideoOperation {
 //        ffmpeg -y -ss 0 -i 2222.mp4 -f image2 -r 1 -t 3 -q:a 1 ./%2d.jpg
         try {
             if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(coverOutPath) || everySecondImg <= 0 || startSeconds <= 0 || seconds <= 0) {
-                throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+                throw new FFMpegException("请输入正确参数，参数不能为空");
             }
             BaseFileUtil.checkAndMkdir(coverOutPath);
 
@@ -206,7 +206,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -220,7 +220,7 @@ public class VideoOperation {
     public Result wipeAudio(String inputVideo, String outputVideo) {
 //       ffmpeg -y -i source.mp4 -an -vcodec copy output.mp4
         if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(outputVideo)) {
-            throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+            throw new FFMpegException("请输入正确参数，参数不能为空");
         }
         BaseFileUtil.checkAndMkdir(outputVideo);
 
@@ -243,7 +243,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -260,7 +260,7 @@ public class VideoOperation {
 //       ffmpeg -y -i in.mp4 -vf scale=360:640 -acodec aac -vcodec h264 out.mp4
 
         if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(outputVideo)) {
-            throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+            throw new FFMpegException("请输入正确参数，参数不能为空");
         }
         BaseFileUtil.checkAndMkdir(outputVideo);
 
@@ -288,7 +288,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -304,7 +304,7 @@ public class VideoOperation {
     public Result videoCrop(String inputVideo, String outWidth, String outHeight, String x, String y, String outputVideo) {
 //       ffmpeg -y -i in.mp4 -strict -2 -vf crop=1080:1080:0:420 out.mp4
         if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(outputVideo)) {
-            throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+            throw new FFMpegException("请输入正确参数，参数不能为空");
         }
         BaseFileUtil.checkAndMkdir(outputVideo);
 
@@ -329,7 +329,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -346,12 +346,12 @@ public class VideoOperation {
     public Result videoRotate(String inputVideo, Integer angleNum, String outWidth, String outHeight, String outputVideo) {
 //       ffmpeg -i in.mp4 -vf rotate=PI/2:ow=1080:oh=1920 out.mp4
         if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(outputVideo)) {
-            throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+            throw new FFMpegException("请输入正确参数，参数不能为空");
         }
         BaseFileUtil.checkAndMkdir(outputVideo);
 
         if(angleNum != 1 && angleNum != 2) {
-            throw new FFMpegExceptionn("非法参数，旋转角度需为-> 1：180deg or 2：90deg");
+            throw new FFMpegException("非法参数，旋转角度需为-> 1：180deg or 2：90deg");
         }
 
         try {
@@ -377,7 +377,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -392,7 +392,7 @@ public class VideoOperation {
     public Result videoFps(String inputVideo, Integer fps, String outputVideo) {
 //      ffmpeg -y -i in.mp4 -r 15 out.mp4
         if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(outputVideo)) {
-            throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+            throw new FFMpegException("请输入正确参数，参数不能为空");
         }
         BaseFileUtil.checkAndMkdir(outputVideo);
 
@@ -416,7 +416,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -430,7 +430,7 @@ public class VideoOperation {
     public Result gifConvertToVideo(String gif, String outputVideo) {
 //      ffmpeg -i in.gif -vf scale=420:-2,format=yuv420p out.mp4  // gif --> mp4
         if(StrUtils.checkBlank(gif) || StrUtils.checkBlank(outputVideo)) {
-            throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+            throw new FFMpegException("请输入正确参数，参数不能为空");
         }
         BaseFileUtil.checkAndMkdir(outputVideo);
 
@@ -453,7 +453,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -469,7 +469,7 @@ public class VideoOperation {
 //      ffmpeg -i src.mp4 -b 2048k des.gif
 //      ffmpeg -i src.mp4 des.gif
         if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(outputGif)) {
-            throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+            throw new FFMpegException("请输入正确参数，参数不能为空");
         }
         BaseFileUtil.checkAndMkdir(outputGif);
         try {
@@ -494,7 +494,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -512,7 +512,7 @@ public class VideoOperation {
 //      ffmpeg -ss 10 -t 15 -accurate_seek -i test.mp4 -codec copy -avoid_negative_ts 1 cut.mp4
 //      ffmpeg -i src.mp4  -ss 00:00:00 -t 00:00:20 des.mp4
         if(StrUtils.checkBlank(inputVideo) || StrUtils.checkBlank(startTime) || StrUtils.checkBlank(seconds) || StrUtils.checkBlank(outputVideo)) {
-            throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+            throw new FFMpegException("请输入正确参数，参数不能为空");
         }
         BaseFileUtil.checkAndMkdir(outputVideo);
 
@@ -544,7 +544,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -583,7 +583,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -622,7 +622,7 @@ public class VideoOperation {
             // 转换nosound.mp4 为背景音乐的mp4
             return convertNoSoundVideoToBgmVideo(videoOutPath,noSoundVideoPath,bgmInputPath,seconds);
         } catch (Exception e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -670,7 +670,7 @@ public class VideoOperation {
         // -y 参数表示覆盖同名称文件
         // ffmpeg -i x.mp4 -i 1.png -map 1 -map 0 -c copy -disposition:0 attached_pic -y y.mp4
         if(StrUtils.checkBlank(videoInputPath) || StrUtils.checkBlank(imagePath) || StrUtils.checkBlank(videoOutPath)) {
-            throw new FFMpegExceptionn("请输入正确参数，参数不能为空");
+            throw new FFMpegException("请输入正确参数，参数不能为空");
         }
         BaseFileUtil.checkAndMkdir(videoOutPath);
         try {
@@ -701,7 +701,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -724,11 +724,11 @@ public class VideoOperation {
     public Result mergeMultiOnlineVideos(File videoListFile, String videoOutPath) {
         // ffmpeg -f concat -safe 0 -protocol_whitelist "file,http,https,tcp,tls" -i video.txt -c copy -y out.mp4
         if(StrUtils.checkBlank(videoOutPath)) {
-            throw new FFMpegExceptionn("videoOutPath must be valid");
+            throw new FFMpegException("videoOutPath must be valid");
         }
         BaseFileUtil.checkAndMkdir(videoOutPath);
         if(!videoListFile.exists() || !videoListFile.isFile()) {
-            throw new FFMpegExceptionn("videoListFile not found");
+            throw new FFMpegException("videoListFile not found");
         }
 
         try {
@@ -756,7 +756,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e.getMessage());
+            throw new FFMpegException(e.getMessage());
         }
     }
 
@@ -771,10 +771,10 @@ public class VideoOperation {
     public Result mergeMultiVideosOfTsOrMpegFormat(List<String> fileNameList, String videoOutPath) {
         // ffmpeg -f concat -safe 0 -i video.txt -c copy -y out.mp4
         if(StrUtils.checkBlank(videoOutPath)) {
-            throw new FFMpegExceptionn("videoOutPath must be valid");
+            throw new FFMpegException("videoOutPath must be valid");
         }
         if(fileNameList == null || fileNameList.isEmpty()) {
-            throw new FFMpegExceptionn("fileNameList must be valid");
+            throw new FFMpegException("fileNameList must be valid");
         }
         BaseFileUtil.checkAndMkdir(videoOutPath);
 
@@ -798,7 +798,7 @@ public class VideoOperation {
 
             return StreamHanlerCommon.closeStreamQuietly(process);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e);
+            throw new FFMpegException(e);
         }
     }
 
@@ -822,10 +822,10 @@ public class VideoOperation {
      */
     public Result mergeMultiVideosByFile(File videoListFile, String videoOutPath) {
         if(StrUtils.checkBlank(videoOutPath)) {
-            throw new FFMpegExceptionn("videoOutPath must be valid");
+            throw new FFMpegException("videoOutPath must be valid");
         }
         if(!videoListFile.exists() || !videoListFile.isFile()) {
-            throw new FFMpegExceptionn("videoListFile not found");
+            throw new FFMpegException("videoListFile not found");
         }
         BaseFileUtil.checkAndMkdir(videoOutPath);
 
@@ -863,14 +863,14 @@ public class VideoOperation {
     public Result autoMergeMultiVideosByDir(String dir, String videoOutPath) {
         // 遍历文件夹
         if(!BaseFileUtil.hashFile(dir)) {
-            throw new FFMpegExceptionn("File must be not null");
+            throw new FFMpegException("File must be not null");
         }
         BaseFileUtil.checkAndMkdir(videoOutPath);
         // 判断文件是否统一后缀，如果不统一后缀，抛出异常
         File[] files = BaseFileUtil.listFiles(dir);
 
         if(!BaseFileUtil.unifySuffix(files)) {
-            throw new FFMpegExceptionn("All video files must have the same suffix");
+            throw new FFMpegException("All video files must have the same suffix");
         }
 
         // 如果是mpg/mpeg文件可以直接转换调用方法合并
@@ -885,7 +885,7 @@ public class VideoOperation {
 
             return mergeMultiVideosByFile(tempVideoFile, videoOutPath);
         } catch (IOException e) {
-            throw new FFMpegExceptionn(e);
+            throw new FFMpegException(e);
         } finally {
             if(tempVideoFile != null) {
                 tempVideoFile.deleteOnExit();
